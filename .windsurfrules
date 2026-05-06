@@ -1,0 +1,82 @@
+# 全局强制规则
+
+## 核心铁律
+- 先读后改、先证据后结论；不确定停下补证据。**严禁编造已读/已改/已验证。** 未读不引。
+
+## 任务分层
+- 只读=分析/解释/盘点，不改代码，只需证据。
+- 轻量=单文件/小文案/纯样式/明确小修，直接命中技能即可动手。
+- 开发=改逻辑/增删接口/数据库变更，必须先执行技能编排。
+
+## 输出与协作
+- 中文回答；命名英文。
+- ≥2文件或≥3步：建 todo_list。
+- 输出极简：只给结论+证据+下一步。
+- 终端命令优先用 MCP 或安全通道，避免裸 shell 操作。
+
+## 全局入口（Rules & Skills）
+
+- 入口总览：`skills/README.md`
+- 技能速查：`skills/skills-reference.md`
+- ID 唯一事实来源（强制）：`skills/skill-id-map.md`
+- 技能可执行化标准：`skills/skill-execution-standard.md`
+- PR 门禁模板：`.github/pull_request_template.md`
+- CI 门禁（如启用 GitHub Actions）：`.github/workflows/skills-gate.yml`
+
+## 技能调用（硬触发）与门禁
+
+任何开发任务必须按以下顺序产出文档，**禁止跳过，未齐禁止开工**：
+1. `one-shot-delivery` → 先列出本次交付物清单（PRD/Preflight/护栏/测试/DoD）
+ 2. 按触发条件拉取对应技能模板并实读遵守：
+   - 需求不明确/缺用户场景/缺竞品/缺价值评估 → `product-manager`（先补全产品思维，再出PRD）
+   - 涉及UI/UX/前端还原/设计系统/交互设计/响应式适配/动画/无障碍 → `designer`（先补设计规范，再写代码）
+   - 增长运营/内容营销/广告投放/用户运营/AI营销 → `ai-marketing`（先补营销策略与数据闭环，再出方案）
+   - Android原生/Kotlin/Jetpack Compose/Activity/Fragment → `android-native`（先补权限/导航/数据层/发布策略）
+   - iOS原生/Swift/SwiftUI/UIKit/ViewController → `ios-native`（先补权限/隐私清单/导航/数据层/App Store审核）
+   - 鸿蒙HarmonyOS/ArkTS/ArkUI/Stage模型/多端适配/流转 → `harmonyos`（先补API级别/多端适配/分布式/AGC上架）
+   - 支付宝小程序/商业服务/芝麻信用/花呗 → `alipay-mini-program`（先补支付宝生态/支付/信用/会员/审核）
+   - 抖音小程序/短视频挂载/直播带货/内容电商 → `douyin-mini-program`（先补内容/挂载/直播/电商/广告/审核）
+   - QQ小程序/社交互动/群能力/厘米秀/游戏 → `qq-mini-program`（先补QQ生态/群/社交裂变/游戏/防沉迷）
+   - UniApp/跨端开发/一套代码多端编译 → `uniapp-cross-platform`（先补条件编译/封装层/原生插件/跨端测试）
+   - 微信小程序/微信生态 → `wechat-mini-program`（先补登录/支付/隐私/分包/审核）
+   - 支付/交易/收银台/回调/退款/对账/分账 → `payment-ecosystem`（先补幂等/验签/对账/风控/合规/告警）
+   - 技术选型/找开源库/找架构方案/找替代品 → `tech-research`（先补检索策略与项目质量评估，再引入依赖）
+   - CI/CD/发布策略/容器编排/SRE/故障演练 → `sre-devops`（先补IaC/发布/可观测性/混沌工程/on-call）
+   - 数据分析/BI报表/ETL/数据可视化/数据治理 → `data-analyst`（先补维度建模/指标体系/pipeline/质量监控）
+   - 推荐/搜索/预测模型/机器学习/特征工程 → `ml-algorithm`（先补特征工程/实验管理/评估/A-B测试/部署监控）
+   - API 变更 → `api-design`
+   - DB 变更 / MySQL 表结构/查询/迁移 → `db-design` + `mysql-rdbms`
+   - 微服务/Nacos/Dubbo/Sentinel/Seata/RocketMQ → `microservices-middleware`
+   - Redis/缓存设计/缓存一致性 → `redis-cache`
+   - 消息队列/Kafka/RocketMQ/RabbitMQ → `message-queue`
+   - 外部输入/权限/敏感数据 → `secure-coding`
+   - 关键链路/上线 → `observability`
+   - 任何功能 → `testing-strategy`
+3. 编码前必须完成 `coding-preflight`（未产出 Preflight 禁止写代码）
+4. 提交前必须完成 `definition-of-done`（未通过 DoD 禁止合并/发布）
+
+### 01-19 详细技能可执行化要求
+
+- 所有 `01-19.md` 及新增详细技能必须遵循 `skills/skill-execution-standard.md`
+- 必须包含：固定输出物 + 必须/禁止规则 + DoD 验收清单
+- 未达标准的技能文档：先补标准再使用，禁止直接引用未可执行化的知识介绍
+
+技能清单与模板位置：`skills/skills-reference.md`（ID 以 `skills/skill-id-map.md` 为唯一事实来源）
+
+## 五大护栏（必须/禁止）与门禁
+
+- 必须：所有外部/下游调用设超时；错误响应有稳定 code+request_id。
+- 必须：DB 迁移提供回滚；关键查询有索引并通过 EXPLAIN。
+- 必须：关键路径有集成/E2E 测试；bug 必补回归用例。
+- 必须：日志贯穿 request_id；禁止输出敏感信息。
+- 必须：输入白名单校验；服务端权限校验；不信任前端。
+- 禁止：直接拼接 SQL/命令/路径；secret 入代码/日志/Git。
+- 禁止：无 PRD 直接写代码；无测试直接提 PR；无 DoD 直接合并。
+- **门禁**：
+  - PRD 未产出 → 禁止进入实现方案
+  - Preflight 未完成 → 禁止开始编码
+  - 护栏模板（api-design/db-design 等）未产出 → 禁止提交 PR
+  - DoD 未自检通过 → 禁止合并/发布
+
+## 组合顺序
+链未齐不进修改；命中即拉取；无关联不拉；联动技能必须实读遵守。
