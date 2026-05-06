@@ -3,6 +3,20 @@
 > 本套技能文档基于 2026 年 GitHub 趋势、开源社区热度及行业需求整理，涵盖当前最具价值的技术方向。
 > **所有详细技能文档必须遵循 [`skill-execution-standard.md`](skill-execution-standard.md)**：固定输出物 + 必须/禁止规则 + DoD 验收清单。
 
+## 索引
+
+- [技能清单](#技能清单)
+- [如何选择学习路径](#如何选择学习路径)
+- [模板与速查（一次成型核心入口）](#模板与速查一次成型核心入口)
+  - [一次成型交付编排模板](one-shot-delivery-template.md)
+  - [编码前检查模板](coding-preflight-template.md)
+  - [测试策略模板](testing-strategy-template.md)
+  - [完成验收模板（DoD）](definition-of-done-template.md)
+  - [技术调研与项目发现模板](tech-research-template.md)
+  - [运维与SRE模板](sre-devops-template.md)
+  - [技能体系速查（参考版）](skills-reference.md)
+  - [Skill ID ↔ Template ID ↔ Trigger 映射表（唯一事实来源）](skill-id-map.md)
+
 ---
 
 ## 技能清单
